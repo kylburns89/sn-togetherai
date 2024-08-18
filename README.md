@@ -17,7 +17,7 @@ Together.ai provides $5.00 worth of free credits for each account, and I've foun
 4. Open the subflow and click test.
 5. Enter a model and prompt. Note: The list of models can be found at [https://api.together.xyz/models](https://api.together.xyz/models) and you will need to enter the full model string including author and model name. (The default in subflow is meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo)
 
-Note: Embedding and Image generation model types are currently not supported. Chat models are supported by default. If you need to test a language model, please update the subflow's resource path to '/v1/completions'
+**Note: Embedding and Image generation model types are currently not supported. Chat models are supported by default. If you need to test a language model, please update the subflow's resource path to '/v1/completions'**
 
 ![image](https://github.com/user-attachments/assets/18d0189a-5c14-4662-a972-575b9a114852)
 
