@@ -3,9 +3,9 @@ ServiceNow flow action and subflow that can be used to test together.ai models.
 
 ## Together AI - Run AI with an API
 
-1. [https://replicate.com/](https://www.together.ai/)
+1. [https://together.ai](https://www.together.ai/)
 2. Sign in with Github
-3. [https://replicate.com/meta/meta-llama-3.1-405b-instruct?input=http](https://api.together.xyz/settings/api-keys)
+3. [https://api.together.xyz/settings/api-keys](https://api.together.xyz/settings/api-keys)
 4. Copy your API key
 
 ## ServiceNow
