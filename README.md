@@ -5,8 +5,7 @@ ServiceNow flow action and subflow that can be used to test together.ai models.
 
 1. [https://together.ai](https://www.together.ai/)
 2. Sign in with Github
-3. [https://api.together.xyz/settings/api-keys](https://api.together.xyz/settings/api-keys)
-4. Copy your API key
+3. Get your API key - [https://api.together.xyz/settings/api-keys](https://api.together.xyz/settings/api-keys)
 
 ## ServiceNow
 
@@ -20,7 +19,7 @@ ServiceNow flow action and subflow that can be used to test together.ai models.
 
 ## Usecase
 
-Since ServiceNow's Now Assist product is unavailable in PDIs, this allows for testing of GenAI responses using together.ai's library of inference models. This could even be implemented into a production Flow if together.ai is allowed in your organization. 
+Since ServiceNow's Now Assist product is unavailable in PDIs, this allows for testing of GenAI responses using together.ai's library of inference models. The subflow could even be utilized in a production Flow if together.ai is allowed in your organization.
 
 ## Future plans
 
