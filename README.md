@@ -21,3 +21,8 @@ ServiceNow flow action and subflow that can be used to test together.ai models.
 ## Usecase
 
 Since ServiceNow's Now Assist product is unavailable in PDIs, this allows for testing of GenAI responses using together.ai's library of inference models. This could even be implemented into a production Flow if together.ai is allowed in your organization. 
+
+## Future plans
+
+* Ability to support image generation / storage of the returned image in ServiceNow.
+* TBD
