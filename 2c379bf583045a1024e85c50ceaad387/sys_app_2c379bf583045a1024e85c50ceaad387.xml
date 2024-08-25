@@ -2,7 +2,7 @@
     <sys_app action="INSERT_OR_UPDATE">
         <active>true</active>
         <can_edit_in_studio>true</can_edit_in_studio>
-        <enforce_license>none</enforce_license>
+        <enforce_license>log</enforce_license>
         <guided_setup_guid/>
         <hide_on_ui>false</hide_on_ui>
         <ide_created>DS</ide_created>
@@ -22,7 +22,7 @@
         <runtime_access_tracking>permissive</runtime_access_tracking>
         <scope>x_690795_together</scope>
         <scoped_administration>false</scoped_administration>
-        <short_description>Together.ai ServiceNow Subflow Test App</short_description>
+        <short_description>An easily configurable collection of generative AI tools for ServiceNow that utilizes Together.AI's serverless endpoints for GenAI tasks. </short_description>
         <source>x_690795_together</source>
         <store_correlation_id/>
         <store_url/>
@@ -32,9 +32,9 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-08-17 02:48:25</sys_created_on>
         <sys_id>2c379bf583045a1024e85c50ceaad387</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>3</sys_mod_count>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-08-17 02:48:27</sys_updated_on>
+        <sys_updated_on>2024-08-24 23:43:30</sys_updated_on>
         <template/>
         <trackable>true</trackable>
         <uninstall_blocked>false</uninstall_blocked>
@@ -42,10 +42,6 @@
         <vendor/>
         <vendor_prefix/>
         <version>1.0.0</version>
-        <x_snc_devtools_documentation_url/>
-        <x_snc_devtools_maintainer/>
-        <x_snc_devtools_maintainer_email/>
-        <x_snc_devtools_repo_url/>
     </sys_app>
     <sys_translated_text action="delete_multiple" query="documentkey=2c379bf583045a1024e85c50ceaad387"/>
     <sys_attachment action="INSERT_OR_UPDATE">
@@ -53,7 +49,6 @@
         <chunk_size_bytes>700000</chunk_size_bytes>
         <compressed>true</compressed>
         <content_type>image/jpeg</content_type>
-        <encryption_context/>
         <file_name>togethercomputer_logo.jpg</file_name>
         <hash>d302d93db8ea340735e085357228d44488ead416aa88cf030673f975e7dce514</hash>
         <image_height>200</image_height>

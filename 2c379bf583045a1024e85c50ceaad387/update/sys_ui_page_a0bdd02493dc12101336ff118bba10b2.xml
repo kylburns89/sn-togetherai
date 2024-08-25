@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script><![CDATA[function getResponse() {
+    // Update HTML to show progress icon
+    var loadingContainer = document.getElementById('generating-message');
+    var textArea = document.getElementById('ai-text-area');
+    
+    loadingContainer.innerHTML = '<span class="icon-ai-sparkle-fill sparkle-icon"></span><span class="modal-title h4">${gs.getMessage("Summarizing...")}</span><div class="loading-indicator icon-loading icon-lg">';
+    textArea.innerHTML = '<span class="sr-only">Close</span></button><br/><br/><br/><textarea id="ai_prompt_response" rows="10" readonly="readonly" class="form-control"></textarea>';
+
+    var description = $j('#desc').val();
+    var short_description = $j('#short_desc').val();
+    var caller = $j('#caller').val();
+    var work_notes = $j('#work_notes').val();
+    var comments = $j('#comments').val();
+
+    var incidentData = "Description: " + description + 
+                       " Short Description: " + short_description + 
+                       " Caller: " + caller + 
+                       " Work Notes: " + work_notes +
+                       " Comments: " + comments;
+
+    // Call the server script
+    var ga = new GlideAjax('x_690795_together.togetherAIUtils');
+    ga.addParam('sysparm_name', 'summarizeIncident');
+    ga.addParam('sysparm_prompt', incidentData);
+    
+    ga.getXMLAnswer(function(response) {
+        if (response && response.length > 0) {
+            handleResponse(response);
+        } else {
+            console.error('Empty response received from server');
+            handleError('Empty response received from server');
+        }
+    }, function(error) {
+        console.error('AJAX call failed:', error);
+        handleError('AJAX call failed: ' + error);
+    });
+}
+
+function handleResponse(response) {
+    // Show the result
+    var loadingDialog = GlideModal.get();
+    loadingDialog.setTitle("AI Generated Content");
+
+    // Update the ai_prompt textarea with the response
+    var aiPromptTextarea = $j('#ai_prompt_response');
+    if (aiPromptTextarea) {
+        aiPromptTextarea.val(response);
+        $j("#ai_prompt_response").append(response);
+
+        // Update as success
+        var loadingContainer = document.getElementById('generating-message');
+        loadingContainer.innerHTML = '<span class="modal-title h4">${gs.getMessage("Success!")}</span>';
+    }
+}
+
+function handleError(error) {
+    console.error('Error:', error);
+    var loadingContainer = document.getElementById('generating-message');
+    loadingContainer.innerHTML = '<span class="modal-title h4">${gs.getMessage("An error occurred: ")}' + error + '</span>';
+}]]></client_script>
+        <description/>
+        <direct>false</direct>
+        <endpoint>x_690795_together_together_ai_summarize.do</endpoint>
+        <html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+
+<g:evaluate var="jvar_sysId" expression="RP.getWindowProperties().get('sysparm_sysID')" />
+<g:evaluate jelly = "true"  object="true">
+
+var gr_inc = new GlideRecord('incident');
+gr_inc.addQuery('sys_id', jelly.jvar_sysId);
+gr_inc.query();
+gr_inc;
+
+// Retrieve work notes
+var workNotes = [];
+var grWorkNotes = new GlideRecord('sys_journal_field');
+grWorkNotes.addQuery('element', 'work_notes');
+grWorkNotes.addQuery('element_id', jelly.jvar_sysId);
+grWorkNotes.orderBy('sys_created_on');
+grWorkNotes.query();
+while (grWorkNotes.next()) {
+	workNotes.push(grWorkNotes.getValue('value'));
+}
+
+// Retrieve comments
+var comments = [];
+var grComments = new GlideRecord('sys_journal_field');
+grComments.addQuery('element', 'comments');
+grComments.addQuery('element_id', jelly.jvar_sysId);
+grComments.orderBy('sys_created_on');
+grComments.query();
+while (grComments.next()) {
+	comments.push(grComments.getValue('value'));
+}
+
+</g:evaluate>
+
+
+<j:while test="${gr_inc.next()}">  
+
+<input type="hidden" id="caller" name="caller" value="${gr_inc.caller_id.getDisplayValue()}" />
+<input type="hidden" id="short_desc" name="short_desc" value="${gr_inc.short_description}" />
+<input type="hidden" id="desc" name="desc" value="${gr_inc.description}" />
+<input type="hidden" id="work_notes" name="work_notes" value="${workNotes.join('\n')}" />
+<input type="hidden" id="comments" name="comments" value="${comments.join('\n')}" />
+
+</j:while>
+
+<style>
+	.modal-header{
+		display:none;
+	}
+	.modal-title{
+		color:RGB(var(--now-alert--moderate--color,var(--now-color_alert--moderate-3,67,69,166)));
+	}
+	.modal-content{
+		margin-top: 125px;
+		border-radius: 8px;
+		border: 1px;
+	}
+	.sparkle-icon::before{
+		font-size:24px !important;
+		color:RGB(var(--now-alert--moderate--color,var(--now-color_alert--moderate-3,67,69,166)));
+		margin-right:2px;
+	}
+	.modal-footer{
+		align:right;
+		padding-right:14px !important;
+	}
+	.sparkle-icon-on-footer::before{
+		font-size:16px !important;
+		margin-right:2px;
+	}
+	.footer-button {
+		min-width: 5em; 
+		margin-left: 8px !important;
+	}			
+</style>
+<div class="modal-body">
+	<span class="icon-ai-sparkle-fill sparkle-icon"></span>
+	<span class="modal-title h4">${gs.getMessage('Summarize this incident?')}</span>
+	<button data-dismiss="GlideModal" aria-label="Close" title="" class="btn btn-icon close icon-cross" id="knowledge_confirm_genAI_modal_closemodal" data-original-title="Close"><span class="sr-only">Close</span></button><br/><br/>
+    <div> ${gs.getMessage('Click the Summarize button to summarize this incident with GenAI!')}
+    </div>
+ </div>
+
+
+<div class="modal-body" >
+	<div id="generating-message"></div>
+	<div id="ai-text-area"></div>
+</div>
+
+<footer class="modal-footer">
+	<button class="btn btn-default footer-button" onclick="cancel()">${gs.getMessage('Cancel')}</button>
+	<button class="btn btn-default footer-button" onclick="copyAIResult()" id="copy">${gs.getMessage('Copy')}</button>
+	<button class="btn btn-primary footer-button" onclick="getResponse()" id="create-button">
+	<span class="icon-ai-sparkle-fill sparkle-icon-on-footer"></span> ${gs.getMessage('Summarize')}</button>
+</footer>
+</j:jelly>
+
+]]></html>
+        <name>together_ai_summarize</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-08-25 02:21:13</sys_created_on>
+        <sys_id>a0bdd02493dc12101336ff118bba10b2</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>together_ai_summarize</sys_name>
+        <sys_package display_value="Together.ai" source="x_690795_together">2c379bf583045a1024e85c50ceaad387</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Together.ai">2c379bf583045a1024e85c50ceaad387</sys_scope>
+        <sys_update_name>sys_ui_page_a0bdd02493dc12101336ff118bba10b2</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-08-25 02:21:13</sys_updated_on>
+    </sys_ui_page>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>a0bdd02493dc12101336ff118bba10b2</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-08-25 02:21:21</sys_created_on>
+        <sys_id>d2bddc2493dc12101336ff118bba100b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-08-25 02:21:21</sys_updated_on>
+        <table>sys_ui_page</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_rest_message_fn_headers">
+    <sys_rest_message_fn_headers action="INSERT_OR_UPDATE">
+        <name>Content-Type</name>
+        <rest_message_function display_value="generate_code">4249b29093d412101336ff118bba10ea</rest_message_function>
+        <sys_class_name>sys_rest_message_fn_headers</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-08-24 19:03:25</sys_created_on>
+        <sys_id>4369fa1093d412101336ff118bba102b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Content-Type</sys_name>
+        <sys_package display_value="Together.ai" source="x_690795_together">2c379bf583045a1024e85c50ceaad387</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Together.ai">2c379bf583045a1024e85c50ceaad387</sys_scope>
+        <sys_update_name>sys_rest_message_fn_headers_4369fa1093d412101336ff118bba102b</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-08-24 19:03:25</sys_updated_on>
+        <value>application/json</value>
+    </sys_rest_message_fn_headers>
+</record_update>

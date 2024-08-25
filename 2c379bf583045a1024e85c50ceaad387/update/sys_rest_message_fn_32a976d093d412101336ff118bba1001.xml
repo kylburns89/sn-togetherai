@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_rest_message_fn">
+    <sys_rest_message_fn action="INSERT_OR_UPDATE">
+        <authentication_type>inherit_from_parent</authentication_type>
+        <basic_auth_password/>
+        <basic_auth_profile/>
+        <basic_auth_user/>
+        <content>{&#13;
+   "model":"${model}",&#13;
+   "max_tokens":4000,&#13;
+   "temperature":0.5,&#13;
+   "messages":[&#13;
+      {&#13;
+         "role":"system",&#13;
+         "content":"You are an expert in ITIL processes and ServiceNow administration and technical writing."&#13;
+      },&#13;
+      {&#13;
+         "role":"user",&#13;
+         "content":"${prompt} "&#13;
+      }&#13;
+   ]&#13;
+}</content>
+        <function_name>generate_knowledge</function_name>
+        <http_method>post</http_method>
+        <lock>false</lock>
+        <oauth2_profile/>
+        <protocol_name/>
+        <qualified_name>Together.AI [ generate_knowledge ]</qualified_name>
+        <rest_endpoint>https://api.together.xyz/v1/chat/completions</rest_endpoint>
+        <rest_message display_value="Together.AI">72a8729093d412101336ff118bba107e</rest_message>
+        <sys_class_name>sys_rest_message_fn</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-08-24 19:04:53</sys_created_on>
+        <sys_id>32a976d093d412101336ff118bba1001</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>generate_knowledge</sys_name>
+        <sys_package display_value="Together.ai" source="x_690795_together">2c379bf583045a1024e85c50ceaad387</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Together.ai">2c379bf583045a1024e85c50ceaad387</sys_scope>
+        <sys_update_name>sys_rest_message_fn_32a976d093d412101336ff118bba1001</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-08-24 19:04:53</sys_updated_on>
+        <use_basic_auth>false</use_basic_auth>
+        <use_mid_server/>
+        <use_mutual_auth>false</use_mutual_auth>
+    </sys_rest_message_fn>
+</record_update>

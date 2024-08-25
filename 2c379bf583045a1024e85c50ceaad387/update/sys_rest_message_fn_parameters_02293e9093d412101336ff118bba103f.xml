@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_rest_message_fn_parameters">
+    <sys_rest_message_fn_parameters action="INSERT_OR_UPDATE">
+        <name>prompt</name>
+        <rest_message_function display_value="summarize">07c8369093d412101336ff118bba10db</rest_message_function>
+        <sys_class_name>sys_rest_message_fn_parameters</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-08-24 19:01:58</sys_created_on>
+        <sys_id>02293e9093d412101336ff118bba103f</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>prompt</sys_name>
+        <sys_package display_value="Together.ai" source="x_690795_together">2c379bf583045a1024e85c50ceaad387</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Together.ai">2c379bf583045a1024e85c50ceaad387</sys_scope>
+        <sys_update_name>sys_rest_message_fn_parameters_02293e9093d412101336ff118bba103f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-08-24 19:02:10</sys_updated_on>
+        <type>string</type>
+        <value>Abel Tuter, Unable to access email on mobile device, User reports being unable to access their company email account on their corporate-issued mobile device. The email app opens but fails to sync new messages or load existing ones. This issue started occurring after the latest software update on the device.</value>
+    </sys_rest_message_fn_parameters>
+</record_update>

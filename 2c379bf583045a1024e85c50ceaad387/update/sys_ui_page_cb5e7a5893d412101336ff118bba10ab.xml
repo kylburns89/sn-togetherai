@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script><![CDATA[var loadingDialog = GlideModal.get();
+var loadingContainer = document.getElementById('generating-message');
+var textArea = document.getElementById('ai-text-area');
+
+function cancel() {
+    GlideModal.get().destroy();
+    return false;
+}
+
+function getResponse() {
+
+    // Update HTML to show progress icon
+    loadingContainer.innerHTML = '<span class="icon-ai-sparkle-fill sparkle-icon"></span><span class="modal-title h4">${gs.getMessage("Generating code...")}</span><div class="loading-indicator icon-loading icon-lg">';
+    textArea.innerHTML = '<span class="sr-only">Close</span></button><br/><br/><br/><textarea id="ai_prompt_response" rows="10" readonly="readonly" class="form-control"></textarea>';
+
+    // Assign the user's entered prompt to the prompt variable
+    var prompt = $j("#ai_prompt").val();
+
+    // Ensure prompt is correctly obtained
+    if (!prompt) {
+        alert("Please enter a prompt.");
+        return;
+    }
+
+    // Call the server script
+    var ga = new GlideAjax('x_690795_together.togetherAIUtils');
+    ga.addParam('sysparm_name', 'generateCode');
+    ga.addParam('sysparm_prompt', prompt);
+    ga.getXMLAnswer(handleResponse);
+}
+
+function handleResponse(response) {
+
+    // Show the result
+    loadingDialog.setTitle("AI Generated Content");
+
+        // Update the ai_prompt textarea with the response
+        var aiPromptTextarea = $j('#ai_prompt_response');
+        if (aiPromptTextarea) {
+            aiPromptTextarea.value = response;
+            $j("#ai_prompt_response").append(response);
+
+            // Update as success
+            loadingContainer.innerHTML = '<span class="modal-title h4">${gs.getMessage("Success!")}</span>';
+
+    }
+}
+
+   function copyAIResult() {
+        var aiResult = $j('#ai_prompt_response');
+        if (aiResult.length) {
+            var text = aiResult.val();
+            navigator.clipboard.writeText(text);
+            alert("Content copied to clipboard!");
+        } else {
+            console.error('ai_prompt_response element not found');
+        }
+    }
+
+]]></client_script>
+        <description/>
+        <direct>false</direct>
+        <endpoint>x_690795_together_together_ai_code_gen.do</endpoint>
+        <html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+<style>
+	.modal-header{
+		display:none;
+	}
+	.modal-title{
+		color:RGB(var(--now-alert--moderate--color,var(--now-color_alert--moderate-3,67,69,166)));
+	}
+	.modal-content{
+		margin-top: 250px;
+		border-radius: 8px;
+		border: 1px;
+	}
+	.sparkle-icon::before{
+		font-size:24px !important;
+		color:RGB(var(--now-alert--moderate--color,var(--now-color_alert--moderate-3,67,69,166)));
+		margin-right:2px;
+	}
+	.modal-footer{
+		align:right;
+		padding-right:14px !important;
+	}
+	.sparkle-icon-on-footer::before{
+		font-size:16px !important;
+		margin-right:2px;
+	}
+	.footer-button {
+		min-width: 5em; 
+		margin-left: 8px !important;
+	}			
+</style>
+<div class="modal-body">
+	<span class="icon-ai-sparkle-fill sparkle-icon"></span>
+	<span class="modal-title h4">${gs.getMessage('Use AI to generate code?')}</span>
+	<button data-dismiss="GlideModal" aria-label="Close" title="" class="btn btn-icon close icon-cross" id="knowledge_confirm_genAI_modal_closemodal" data-original-title="Close"><span class="sr-only">Close</span></button><br/><br/><br/>
+    <div> ${gs.getMessage('Enter a prompt to have AI Assist generate code for you.')}
+    </div>
+	<textarea id="ai_prompt" rows="10" class="form-control"></textarea>
+ </div>
+
+
+<div class="modal-body" >
+	<div id="generating-message"></div>
+	<div id="ai-text-area"></div>
+</div>
+
+<footer class="modal-footer">
+	<button class="btn btn-default footer-button" onclick="cancel()">${gs.getMessage('Cancel')}</button>
+	<button class="btn btn-default footer-button" onclick="copyAIResult()" id="copy">${gs.getMessage('Copy')}</button>
+	<button class="btn btn-primary footer-button" onclick="getResponse()" id="create-button">
+	<span class="icon-ai-sparkle-fill sparkle-icon-on-footer"></span> ${gs.getMessage('Generate code.')}</button>
+</footer>
+</j:jelly>
+
+]]></html>
+        <name>together_ai_code_gen</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-08-24 19:25:14</sys_created_on>
+        <sys_id>cb5e7a5893d412101336ff118bba10ab</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>together_ai_code_gen</sys_name>
+        <sys_package display_value="Together.ai" source="x_690795_together">2c379bf583045a1024e85c50ceaad387</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Together.ai">2c379bf583045a1024e85c50ceaad387</sys_scope>
+        <sys_update_name>sys_ui_page_cb5e7a5893d412101336ff118bba10ab</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-08-24 19:25:14</sys_updated_on>
+    </sys_ui_page>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>cb5e7a5893d412101336ff118bba10ab</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-08-24 19:25:14</sys_created_on>
+        <sys_id>7e7e3e5893d412101336ff118bba1012</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-08-24 19:25:14</sys_updated_on>
+        <table>sys_ui_page</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>
